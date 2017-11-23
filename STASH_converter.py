@@ -428,7 +428,7 @@ def ReadStash(stashfile,time_dict,dom_dict,use_dict):
         print "Translating STASH file ",stashfile
         acount=0
         f = open(stashfile, 'r')
-	out_file=open(odir+stashfile+'.csv','w')
+	out_file=open(stashfile+'.csv','w')
         stash_writer=csv.writer(out_file,delimiter=',')
 	stash_writer.writerow(["Model", "Stash code", "Name", "Units","CMOR Name", "Spatial Domain", "Time Sampling and Output","Output File"])
 	for line in f:
