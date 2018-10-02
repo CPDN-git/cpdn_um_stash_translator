@@ -246,6 +246,7 @@ def ReadDomains(stashfile):
 	    pslevs_out=""
 	    ps_levs=""
             horiz_domain=""
+	    pseudo_lev_type="None"
 	    if len(dl)>0:
                 dl1=dl.split(",")
                 dom_name=dl1[0]
