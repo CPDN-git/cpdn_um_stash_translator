@@ -211,7 +211,11 @@ def ReadDomains(stashfile):
         dom_line=""
 	dom_dict={}
 	horiz_domain_type=""
-        count=0
+        meaning="None"
+        weighting="None"
+        pseudo_lev_type="None"
+        ts_switch=""
+	count=0
 	acount=0
         with open(stashfile, 'r') as input:
            for line in input:
