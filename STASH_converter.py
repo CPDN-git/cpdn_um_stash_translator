@@ -211,11 +211,11 @@ def ReadDomains(stashfile):
         dom_line=""
 	dom_dict={}
 	horiz_domain_type=""
-        meaning="None"
+	meaning="None"
         weighting="None"
         pseudo_lev_type="None"
         ts_switch=""
-	count=0
+        count=0
 	acount=0
         with open(stashfile, 'r') as input:
            for line in input:
@@ -250,7 +250,6 @@ def ReadDomains(stashfile):
 	    pslevs_out=""
 	    ps_levs=""
             horiz_domain=""
-	    pseudo_lev_type="None"
 	    if len(dl)>0:
                 dl1=dl.split(",")
                 dom_name=dl1[0]
@@ -458,7 +457,9 @@ def ReadStash(stashfile,time_dict,dom_dict,use_dict):
 #----------------------------------------------------
 def get_stash_item(line,time_dict,dom_dict,use_dict,acount):
 	for i,item in enumerate(line):
-		result=item.split('=')
+		# Strip off any comments
+		item_strip=item.split('#')[0]
+		result=item_strip.split('=')
 		if i==len(line)-1:
 		 	r=result[-1]
 			r2=r.strip()
@@ -513,17 +514,20 @@ def lookupSTASH(stash_code,model_id):
 		CMOR_name=row["CF standard name"]
 		units=row["Units"]
 	return name,units,CMOR_name
+#---------------------------------------------------
+def main():
+	# Firstly read any command line options
+        ProcessCommandLineOpts()
+
+        timeDict=ReadTimes(Vars.stashfile)
+        domDict=ReadDomains(Vars.stashfile)
+        useDict=ReadUses(Vars.stashfile)
+        ReadStash(Vars.stashfile,timeDict,domDict,useDict)
+
+        print "Finished!"
+
 
 #----------------------------------------------------
 if __name__ == "__main__":
-        # Firstly read any command line options
-        ProcessCommandLineOpts()
-
-	timeDict=ReadTimes(Vars.stashfile)
-	domDict=ReadDomains(Vars.stashfile)
-	useDict=ReadUses(Vars.stashfile)
-	ReadStash(Vars.stashfile,timeDict,domDict,useDict)
-        
-	print "Finished!"
-
+	main()
 
